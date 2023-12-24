@@ -18,7 +18,7 @@ class Line:
         if left_padding % 2 != 0:
             raise Exception(f"Uneven number of spaces on left side of line: {left_padding}")
 
-        return left_padding / 2
+        return int(left_padding / 2)
 
     def __str__(self) -> str:
         return self.str
