@@ -1,6 +1,6 @@
 class Line:
     def __init__(self, str: str) -> None:
-        self.str = str
+        self.str = str.rstrip()
         self.depth = self.__calc_depth(str)
         self.sub_content_type = self.__type(str)
 

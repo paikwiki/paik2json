@@ -22,6 +22,9 @@ class LineTestCase(unittest.TestCase):
         with self.assertRaises(Exception):
             Line(" " + "Hello, World!")
 
+    def test_문자열_끝의_공백을_제거한다(self):
+        self.assertEqual("Hello, World", str(Line("Hello, World ")))
+
     def test_일반_문자열의_다음_깊이의_아이템은_문자열_타입이_된다(self):
         self.assertEqual("string", self.line.sub_content_type)
 
