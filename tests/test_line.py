@@ -18,9 +18,15 @@ class LineTestCase(unittest.TestCase):
             line = Line(str)
             self.assertEqual(index, line.depth)
 
-    def test_홀수인_들여쓰기가_있으면_에러를_반환한다(self):
+    def test_odd_파라미터없이_홀수인_들여쓰기면_에러를_반환한다(self):
         with self.assertRaises(Exception):
             Line(" " + "Hello, World!")
+
+    def test_odd_파라미터가_True면_홀수인_들여쓰기를_처리할_수_있다(self):
+        self.assertEqual(
+            " Hello, World!",
+            str(Line(" " + "Hello, World!", True)),
+        )
 
     def test_문자열_끝의_공백을_제거한다(self):
         self.assertEqual("Hello, World", str(Line("Hello, World ")))
