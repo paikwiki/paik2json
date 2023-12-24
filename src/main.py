@@ -1,7 +1,5 @@
-
-
 def main():
-    print("paik2json")
+    pass
 
 if __name__ == "__main__":
     main()
