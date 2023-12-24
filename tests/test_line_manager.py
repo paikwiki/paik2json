@@ -31,3 +31,9 @@ class LineManagerTestCase(unittest.TestCase):
     def test_들여쓰기_규칙이_맞지_않는_라인이_있으면_에러를_반환한다(self):
         with self.assertRaises(Exception):
             LineManager(self.invalid_raw_data)
+
+    def test_가장_깊은_들여쓰기를_반환할_수_있다(self):
+        self.assertEqual(2, self.line_manager.deepest_depth)
+
+    def tearDown(self):
+        del self.line_manager
