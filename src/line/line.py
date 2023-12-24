@@ -8,6 +8,8 @@ class Line:
     def __type(self, str: str) -> str:
         if str.endswith(":"):
             return "list"
+        elif str.endswith(": >"):
+            return "concatables"
         else:
             return "string"
 
