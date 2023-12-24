@@ -45,6 +45,16 @@ line"""
             line_manager.concatLines(),
         )
 
+    def test_concatable_파라미터를_True_설정하면_들여쓰기가_홀수인_문자열이_있어도_하나의_문자열로_합칠_수_있다(self):
+        raw = """line
+ line
+line"""
+        line_manager = LineManager(raw, True)
+        self.assertEqual(
+            "line lineline",
+            line_manager.concatLines(),
+        )
+
     def test_모든_문자열의_깊이가_같지않으면_에러를_반환한다(self):
         raw = """line
 line
@@ -57,12 +67,20 @@ line
             line_manager.concatLines()
 
     def test_문자열을_합칠_때_시작_공백을_깊이만큼_제거한다(self):
-        raw = """  line
+        raw1 = """  line
   line
   line"""
-        line_manager = LineManager(raw)
+        raw2 = """  line
+   line
+   line"""
+        line_manager = LineManager(raw1, True)
         self.assertEqual(
             "linelineline",
+            line_manager.concatLines(),
+        )
+        line_manager = LineManager(raw2, True)
+        self.assertEqual(
+            "line line line",
             line_manager.concatLines(),
         )
 

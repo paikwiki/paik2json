@@ -2,8 +2,8 @@ from .line import Line
 
 
 class LineManager:
-    def __init__(self, raw_data: str):
-        self.lines = [Line(line) for line in raw_data.splitlines()]
+    def __init__(self, raw_data: str, concatables: bool = False):
+        self.lines = [Line(line, concatables) for line in raw_data.splitlines()]
         self.deepest_depth = max([line.depth for line in self.lines])
 
     def concatLines(self) -> str:
