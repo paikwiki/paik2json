@@ -1,4 +1,5 @@
-from .line import Line
+from paik2json.line import Line
+from paik2json.array import Array
 
 
 class LineManager:
@@ -14,3 +15,11 @@ class LineManager:
                 )
         return "".join([str(line)[line.depth * 2:] for line in self.lines])
 
+
+    def toList(self):
+        for line in self.lines:
+            if line.depth != self.deepest_depth:
+                raise Exception(
+                    f"lines have different depths. current depth: {line.depth} / deepest depth: {self.deepest_depth}"
+                )
+        return Array(self.lines)

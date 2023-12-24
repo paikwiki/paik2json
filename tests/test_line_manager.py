@@ -1,7 +1,6 @@
 import unittest
 
-from paik2json.line import Line
-from paik2json.line import LineManager
+from paik2json.line_manager import LineManager
 
 
 raw_data = """line
@@ -35,7 +34,7 @@ class LineManagerTestCase(unittest.TestCase):
     def test_가장_깊은_들여쓰기를_반환할_수_있다(self):
         self.assertEqual(2, self.line_manager.deepest_depth)
 
-    def test_문자열을_하나의_문자열로_합칠_수_있다(self):
+    def test_toString_으로_문자열을_하나의_문자열로_합칠_수_있다(self):
         raw = """line
 line
 line"""
@@ -83,6 +82,32 @@ line
             "line line line",
             line_manager.toString(),
         )
+
+    def test_toList_로_문자열을_리스트로_바꿀_수_있다(self):
+        raw1 = """line
+line
+line"""
+        line_manager = LineManager(raw1)
+        self.assertEqual(
+            "['line', 'line', 'line']",
+            str(line_manager.toList()),
+        )
+        raw2 = """  line
+  line
+  line"""
+        line_manager = LineManager(raw2)
+        self.assertEqual(
+            "['line', 'line', 'line']",
+            str(line_manager.toList()),
+        )
+
+    def test_toList_로_깊이가_같지_않은_문자열을_리스트로_바꾸면_에러를_반환한다(self):
+        raw = """line
+  line
+line"""
+        line_manager = LineManager(raw)
+        with self.assertRaises(Exception):
+            line_manager.toList()
 
     def tearDown(self):
         del self.line_manager
