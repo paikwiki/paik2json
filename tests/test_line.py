@@ -1,6 +1,6 @@
 import unittest
 
-from src.line.line import Line
+from paik2json.line import Line
 
 
 class LineTestCase(unittest.TestCase):
