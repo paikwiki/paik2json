@@ -14,10 +14,15 @@ line
     line
 """
 
+raw_모든_깊이_0 = "line\nline\nline"
+raw_모든_깊이_2 = "  line\n  line\n  line"
+
 
 class LineManagerTestCase(unittest.TestCase):
     def setUp(self):
         self.line_manager = LineManager(raw_data)
+        self.line_manager_모든_깊이_0 = LineManager(raw_모든_깊이_0)
+        self.line_manager_모든_깊이_2 = LineManager(raw_모든_깊이_2)
         self.splited_lines = raw_data.strip().splitlines()
         self.invalid_raw_data = "\n".join([f" {line}" for line in self.splited_lines])
 
@@ -35,79 +40,52 @@ class LineManagerTestCase(unittest.TestCase):
         self.assertEqual(2, self.line_manager.deepest_depth)
 
     def test_toString_으로_문자열을_하나의_문자열로_합칠_수_있다(self):
-        raw = """line
-line
-line"""
-        line_manager = LineManager(raw)
         self.assertEqual(
             "linelineline",
+            self.line_manager_모든_깊이_0.toString(),
+        )
+        self.assertEqual(
+            "linelineline",
+            self.line_manager_모든_깊이_2.toString(),
+        )
+        raw = "  line\n   line\n   line"
+        line_manager = LineManager(raw, True)
+        self.assertEqual(
+            "line line line",
             line_manager.toString(),
         )
+        del line_manager
 
     def test_concatable_파라미터를_True_설정하면_들여쓰기가_홀수인_문자열이_있어도_하나의_문자열로_합칠_수_있다(self):
-        raw = """line
- line
-line"""
+        raw = "line\n line\nline"
         line_manager = LineManager(raw, True)
         self.assertEqual(
             "line lineline",
             line_manager.toString(),
         )
+        del line_manager
 
-    def test_모든_문자열의_깊이가_같지않으면_에러를_반환한다(self):
-        raw = """line
-line
-line
-line
-  line
-"""
-        line_manager = LineManager(raw)
+    def test_toString_실행시_모든_문자열의_깊이가_같지_않으면_에러를_반환한다(self):
+        raw = "line\nline\nline\nline\n  line"
         with self.assertRaises(Exception):
-            line_manager.toString()
-
-    def test_문자열을_합칠_때_시작_공백을_깊이만큼_제거한다(self):
-        raw1 = """  line
-  line
-  line"""
-        raw2 = """  line
-   line
-   line"""
-        line_manager = LineManager(raw1, True)
-        self.assertEqual(
-            "linelineline",
-            line_manager.toString(),
-        )
-        line_manager = LineManager(raw2, True)
-        self.assertEqual(
-            "line line line",
-            line_manager.toString(),
-        )
+            LineManager(raw).toString()
 
     def test_toList_로_문자열을_리스트로_바꿀_수_있다(self):
-        raw1 = """line
-line
-line"""
-        line_manager = LineManager(raw1)
         self.assertEqual(
             "['line', 'line', 'line']",
-            str(line_manager.toList()),
+            str(self.line_manager_모든_깊이_0.toList()),
         )
-        raw2 = """  line
-  line
-  line"""
-        line_manager = LineManager(raw2)
         self.assertEqual(
             "['line', 'line', 'line']",
-            str(line_manager.toList()),
+            str(self.line_manager_모든_깊이_2.toList()),
         )
 
-    def test_toList_로_깊이가_같지_않은_문자열을_리스트로_바꾸면_에러를_반환한다(self):
-        raw = """line
-  line
-line"""
-        line_manager = LineManager(raw)
+    def test_toList_실행시_모든_문자열의_깊이가_같지_않으면_에러를_반환한다(self):
+        raw = "line\n  line\nline"
         with self.assertRaises(Exception):
-            line_manager.toList()
+            LineManager(raw).toList()
 
     def tearDown(self):
         del self.line_manager
+        del self.line_manager_모든_깊이_0
+        del self.line_manager_모든_깊이_2
