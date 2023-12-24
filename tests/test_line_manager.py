@@ -35,5 +35,36 @@ class LineManagerTestCase(unittest.TestCase):
     def test_가장_깊은_들여쓰기를_반환할_수_있다(self):
         self.assertEqual(2, self.line_manager.deepest_depth)
 
+    def test_문자열을_하나의_문자열로_합칠_수_있다(self):
+        raw = """line
+line
+line"""
+        line_manager = LineManager(raw)
+        self.assertEqual(
+            "linelineline",
+            line_manager.concatLines(),
+        )
+
+    def test_모든_문자열의_깊이가_같지않으면_에러를_반환한다(self):
+        raw = """line
+line
+line
+line
+  line
+"""
+        line_manager = LineManager(raw)
+        with self.assertRaises(Exception):
+            line_manager.concatLines()
+
+    def test_문자열을_합칠_때_시작_공백을_깊이만큼_제거한다(self):
+        raw = """  line
+  line
+  line"""
+        line_manager = LineManager(raw)
+        self.assertEqual(
+            "linelineline",
+            line_manager.concatLines(),
+        )
+
     def tearDown(self):
         del self.line_manager
