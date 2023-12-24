@@ -2,6 +2,14 @@ class Line:
     def __init__(self, str: str) -> None:
         self.str = str
         self.depth = self.__calc_depth(str)
+        self.sub_content_type = self.__type(str)
+
+
+    def __type(self, str: str) -> str:
+        if str.endswith(":"):
+            return "list"
+        else:
+            return "string"
 
     def __calc_depth(self, str: str) -> int:
         left_padding = len(str) - len(str.lstrip())
