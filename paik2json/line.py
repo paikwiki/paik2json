@@ -5,6 +5,9 @@ class Line:
         self.sub_content_type = self.__type(str)
         self.odd = odd
 
+    def strip_depth(self) -> str:
+        return self.str[self.depth * 2 :]
+
     def __type(self, str: str) -> str:
         if str.endswith(":"):
             return "list"

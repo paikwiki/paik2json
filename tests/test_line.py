@@ -40,6 +40,10 @@ class LineTestCase(unittest.TestCase):
     def test_문자열이_콜론_공백_Greater_Than_으로_끝나면_다음_깊이의_문자열들은_하나의_문자열이_된다(self):
         self.assertEqual("concatables", self.strings_starting_line.sub_content_type)
 
+    def test_strip_depth_로_깊이를_제거한_문자열을_반환할_수_있다(self):
+        for s in self.depthed_strs:
+            self.assertEqual("Hello, World!", Line(s).strip_depth())
+
     def tearDown(self):
         del self.line
 
