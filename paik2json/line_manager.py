@@ -24,4 +24,4 @@ class LineManager:
         return lst
 
     def toJSON(self):
-        return "{'line': 'line'}"
+        return "{'line': ['line']}"
