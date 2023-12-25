@@ -12,7 +12,7 @@ class LineManager:
                 raise Exception(
                     f"lines have different depths. current depth: {line.depth} / deepest depth: {self.deepest_depth}"
                 )
-        return "".join([str(line)[line.depth * 2 :] for line in self.lines])
+        return "".join([line.strip_depth() for line in self.lines])
 
     def toList(self):
         for line in self.lines:
