@@ -22,3 +22,6 @@ class LineManager:
                 )
         lst = [str(line).strip() for line in self.lines]
         return lst
+
+    def toJSON(self):
+        return "{'line': 'line'}"
