@@ -14,7 +14,8 @@ line
     line
 """
 
-raw_메모_예시 = """day-2023-12-27-D0
+raw_메모_예시 = """
+day-2023-12-27-D0
   일일보고-D1
     한일-D2
       문서 쓰기
@@ -22,12 +23,14 @@ raw_메모_예시 = """day-2023-12-27-D0
     할일-D2
       문서 읽기
       코드 실행하기
+
   토픽1-D1
     할일1-D2
       뭔가 해야함
       할 게 많음
     할일2-D2
     할일3-D2
+
   토픽2-D1
     할 게 별로 없음
     할일4-D2
@@ -35,6 +38,7 @@ raw_메모_예시 = """day-2023-12-27-D0
 
 raw_모든_깊이_0 = "line\nline\nline"
 raw_모든_깊이_2 = "  line\n  line\n  line"
+raw_빈_라인 = "\nline\n\nline\nline"
 
 
 class LineManagerTestCase(unittest.TestCase):
@@ -43,8 +47,11 @@ class LineManagerTestCase(unittest.TestCase):
         self.line_manager_모든_깊이_0 = LineManager(raw_모든_깊이_0)
         self.line_manager_모든_깊이_2 = LineManager(raw_모든_깊이_2)
         self.line_manager_메모_예시 = LineManager(raw_메모_예시)
-        self.splited_lines = raw_data.strip().splitlines()
-        self.splited_lines_메모_예시 = raw_메모_예시.strip().splitlines()
+        self.line_manager_빈_라인 = LineManager(raw_빈_라인)
+        self.splited_lines = [line for line in raw_data.strip().splitlines() if line]
+        self.splited_lines_메모_예시 = [
+            line for line in raw_메모_예시.strip().splitlines() if line
+        ]
         self.invalid_raw_data = "\n".join([f" {line}" for line in self.splited_lines])
 
     def test_문자열을_Line_리스트로_저장할_수_있다(self):
@@ -55,6 +62,12 @@ class LineManagerTestCase(unittest.TestCase):
         self.assertEqual(
             self.splited_lines_메모_예시,
             [str(line) for line in self.line_manager_메모_예시.lines],
+        )
+
+    def test_문자열을_Line_리스트로_저장할_때_빈_라인은_제거한다(self):
+        self.assertEqual(
+            ["line", "line", "line"],
+            [str(line) for line in self.line_manager_빈_라인.lines],
         )
 
     def test_들여쓰기_규칙이_맞지_않는_라인이_있으면_에러를_반환한다(self):
