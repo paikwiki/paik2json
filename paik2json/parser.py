@@ -22,25 +22,25 @@ class Parser:
     def parse(self):
         json = {}
         for i in range(self.line_manager.deepest_depth + 1):
-            for r in self.table:
-                if r[i] is None:
+            for raw in self.table:
+                if raw[i] is None:
                     continue
 
                 if i == 0:
                     upper = json
                 elif i == 1:
-                    upper = json[r[0]]
+                    upper = json[raw[0]]
                 elif i == 2:
-                    upper = json[r[0]][r[1]]
+                    upper = json[raw[0]][raw[1]]
                 elif i == 3:
-                    upper = json[r[0]][r[1]][r[2]]
+                    upper = json[raw[0]][raw[1]][raw[2]]
                 elif i == 4:
-                    upper = json[r[0]][r[1]][r[2]][r[3]]
+                    upper = json[raw[0]][raw[1]][raw[2]][raw[3]]
                 elif i == 5:
-                    upper = json[r[0]][r[1]][r[2]][r[3]][r[4]]
+                    upper = json[raw[0]][raw[1]][raw[2]][raw[3]][raw[4]]
                 elif i > 5:
                     raise NotImplementedError()
 
-                upper[r[i]] = {}
+                upper[raw[i]] = {}
 
         return json
