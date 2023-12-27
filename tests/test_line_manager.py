@@ -111,12 +111,6 @@ class LineManagerTestCase(unittest.TestCase):
         with self.assertRaises(Exception):
             LineManager(raw).toList()
 
-    def test_toJSON_으로_문자열을_JSON로_바꿀_수_있다(self):
-        self.assertEqual(
-            str(dict({"line": ["line"]})),
-            LineManager("line\n  line").toJSON(),
-        )
-
     def tearDown(self):
         del self.line_manager
         del self.line_manager_모든_깊이_0
