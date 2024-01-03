@@ -7,7 +7,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="paik2json",
-    version="0.0.1",
+    version="0.0.2",
     description="convert paik to json",
     author="paikwiki",
     author_email="paikwiki@gmail.com",
