@@ -3,15 +3,16 @@ from paik2json.line_manager import LineManager
 
 
 class Parser:
-    def __init__(self, line_manager: LineManager):
+    def __init__(self, line_manager: LineManager, hook = lambda x: x):
         self.line_manager = line_manager
+        self.hook = hook
         self.table = self.__to_table()
 
     def __to_table(self):
         table = [[None] * (self.line_manager.deepest_depth + 1)]
         for index, line in enumerate(self.line_manager.lines):
             right_empties_count = self.line_manager.deepest_depth - line.depth
-            table[index][line.depth] = line.strip_depth()
+            table[index][line.depth] = self.hook(line.strip_depth())
             table[index] = table[index][: line.depth + 1] + (
                 [None] * right_empties_count
             )
