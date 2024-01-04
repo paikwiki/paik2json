@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="paik2json",
-    version="0.0.3",
+    version="0.0.4",
     description="convert paik to json",
     author="paikwiki",
     author_email="paikwiki@gmail.com",
