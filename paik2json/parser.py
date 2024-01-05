@@ -3,8 +3,11 @@ from paik2json.line_manager import LineManager
 
 
 class Parser:
-    def __init__(self, line_manager: LineManager, hook = lambda x: x):
-        self.line_manager = line_manager
+    def __init__(self, line_manager_or_text, hook = lambda x: x):
+        if isinstance(line_manager_or_text, str):
+            self.line_manager = LineManager(line_manager_or_text)
+        else:
+            self.line_manager = line_manager_or_text
         self.hook = hook
         self.table = self.__to_table()
 
