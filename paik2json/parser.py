@@ -3,7 +3,7 @@ from paik2json.line_manager import LineManager
 
 
 class Parser:
-    def __init__(self, text, hook = lambda x: x):
+    def __init__(self, text, hook=lambda x: x):
         self.line_manager = LineManager(text)
         self.hook = hook
         self.table = self.__to_table()
@@ -44,4 +44,27 @@ class Parser:
 
                 upper[raw[i]] = {}
 
-        return json
+        return self.__convert_leaf_node(json)
+
+    def __convert_leaf_node(self, dictionary):
+        keys = dictionary.keys()
+
+        flag = False
+        for key in keys:
+            if dictionary[key] == {}:
+                flag = True
+            else:
+                flag = False
+                break
+
+        if flag:
+            dictionary = list(keys)
+            return dictionary
+
+        for key in keys:
+            if dictionary[key] != {}:
+                dictionary[key] = self.__convert_leaf_node(dictionary[key])
+            else:
+                dictionary[key] = []
+
+        return dictionary
