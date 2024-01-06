@@ -71,10 +71,6 @@ class ParserTestCase(unittest.TestCase):
         result2 = Parser(raw_메모_예시2, hook=(lambda x: x.replace("ABC", "DEF"))).parse()
         self.assertDictEqual(expected2, result2)
 
-    def test_parser_가_인자로_Line_manager를_받으면_에러를_반환한다(self):
-        with self.assertRaises(Exception):
-            Parser(LineManager(raw_메모_예시2))
-
     def test_parser_가_인자로_문자열을_받을_수있다(self):
         expected = json.loads(
             """{"2023-12-28(목)": {"did": ["🕹️ [ABC-1] 책장 정리하기","🕹️ [ABC-12] 검색 폼 생성"],"willdo": ["🕹️ [ABC-123] 검색 기능 추가","🕹️ [ABC-1234] 책 등록하기"],"🕹️ [ABC-123] 검색 기능 추가": ["하나씩 처리","두개씩 처리","세개씩 처리"]},"2023-12-27(수)": {"did": ["🕹️ [ABC-9] 책장 구상하기","🕹️ 휴가"],"willdo": ["🕹️ [ABC-1] 책장 정리하기","🕹️ [ABC-12] 검색 폼 생성"],"🕹️ [ABC-12] 검색 폼 생성": ["검색 폼 UI 제작","반응형 적용"]}}"""

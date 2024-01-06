@@ -27,22 +27,12 @@ class Parser:
                 if raw[i] is None:
                     continue
 
-                if i == 0:
-                    upper = json
-                elif i == 1:
-                    upper = json[raw[0]]
-                elif i == 2:
-                    upper = json[raw[0]][raw[1]]
-                elif i == 3:
-                    upper = json[raw[0]][raw[1]][raw[2]]
-                elif i == 4:
-                    upper = json[raw[0]][raw[1]][raw[2]][raw[3]]
-                elif i == 5:
-                    upper = json[raw[0]][raw[1]][raw[2]][raw[3]][raw[4]]
-                elif i > 5:
-                    raise NotImplementedError()
-
-                upper[raw[i]] = {}
+                upper = json
+                for index in range(i + 1):
+                    if index < i:
+                        upper = upper[raw[index]]
+                    else:
+                        upper[raw[index]] = {}
 
         return self.__convert_leaf_node(json)
 
